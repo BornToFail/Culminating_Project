@@ -177,7 +177,8 @@ public class Game extends Canvas implements Runnable {
 			if (State == STATE.GAME){
 				//Enemy.testBorders();
 				p.playercollisionTest(passiveSpawner);
-				Enemy.bulletcollisionTest();
+				Enemy.bulletcollisionTest(passiveSpawner, Controller.projectiles);
+				Enemy.wallCollisionTest(passiveSpawner);//Problematic
 			}
 			if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
@@ -198,9 +199,9 @@ public class Game extends Canvas implements Runnable {
 		hudTimer++;
 	
 		if ((hudTimer % 200)==0){
-			if (passiveSpawner.size() < 10){
+		//	if (passiveSpawner.size() 10){
 				genericEnemyBehaviour();
-			}
+		//	}
 		}
 		
 		}else if(State == STATE.PAUSE){

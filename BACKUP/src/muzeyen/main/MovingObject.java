@@ -54,10 +54,7 @@ public abstract class MovingObject implements Runnable {
 			animateOneStep();
 			x += getxSpeed();
 			y += getySpeed();
-//			if (x >= right )
-//				xSpeed *= -1;
-//			if ( y <= top)
-//				ySpeed *= -1;
+				
 			try {
 				Thread.sleep(PauseDuration);
 			} catch (InterruptedException e) {

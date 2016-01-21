@@ -47,11 +47,11 @@ public class Enemy extends MovingObject {
 //	}
 
 
-	public static void bulletcollisionTest(){
+	public static void bulletcollisionTest(ArrayList <Enemy> Enemies , ArrayList <Bullet> Bullets){
 
 		for (int i = 0; i<Game.passiveSpawner.size(); i++){
 			for(int j = 0; j< Controller.projectiles.size(); j++){
-				double distance = Math.sqrt(Math.pow(Controller.projectiles.get(j).getX()-Game.passiveSpawner.get(i).getX(),2) + Math.pow(Game.passiveSpawner.get(i).getY()-Controller.projectiles.get(j).getY(),2));
+				double distance = Math.sqrt(Math.pow(Bullets.get(j).getX()- Enemies.get(i).getX(),2) + Math.pow(Enemies.get(i).getY()-Bullets.get(j).getY(),2));
 				if (distance < 8){
 					Game.passiveSpawner.remove(i);
 					Controller.projectiles.remove(j);
@@ -61,6 +61,15 @@ public class Enemy extends MovingObject {
 			}
 		}
 			
+	}
+	public static void wallCollisionTest(ArrayList<Enemy> Enemies){
+		for(int i = 0; i < Enemies.size(); i++){
+			if (Enemies.get(i).getX() >= 400 )
+				Enemies.get(i).setxSpeed(xSpeed*=-1);
+			if (Enemies.get(i).getX() <= 0 )
+				Enemies.get(i).setxSpeed(xSpeed*=-1);
+		}
+	
 	}
 	public void animateOneStep() {
 	}

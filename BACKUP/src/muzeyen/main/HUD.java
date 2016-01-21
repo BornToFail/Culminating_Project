@@ -16,9 +16,9 @@ public class HUD {
 	private static BufferedImage fennFH = null;
 	private static BufferedImage fennMH = null;
 	private static BufferedImage fennLH = null;
-
 	private static BufferedImage blobFH = null;
 	public static int score = 0;
+	public static int tempScore = 0;
 	public static String playerName;
 	public static  Rectangle hudFrame = new Rectangle(160,481, 500, 0);
 	
@@ -106,8 +106,14 @@ public class HUD {
 			//check if it's in highscores
 			//if it is, prompt them to add their name to save score
 			//if not gameover screen
-			HighScore.testScores(score, playerName);
+			tempScore = score;
+			HighScore.testScores(tempScore, playerName);
 			Game.State = Game.STATE.GAMEOVER;
+			
+			Player.lives = 3; //reset player
+			score = 0;
+			Player.bombs = 3;
+			Player.blinking = false;
 
 		}
     	g.setFont(fntL);

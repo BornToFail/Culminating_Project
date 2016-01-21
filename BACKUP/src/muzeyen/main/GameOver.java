@@ -35,7 +35,7 @@ public class GameOver {
 		}
 		g.setColor(Color.WHITE);
 		g.drawImage(background, 0, 0, null);
-		g.drawString("Last Round's Score:" + HUD.score, 460, 145);
+		g.drawString("Last Round's Score:" + HUD.tempScore, 460, 145);
 		g.drawString("Game © Born To Fail 2016 ", 520, 475);
 		g.drawImage(gameoverText, 30, 30, null);
 		g.drawImage(highScoresTitle, 75, 100, null);
