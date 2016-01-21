@@ -25,6 +25,7 @@ public class Game extends Canvas implements Runnable {
 	public final String TITLE = "Revenge of the Blob"; //title
 	public static int hudTimer = 0;
 	private boolean running = false;
+	public static int spawnRate = 5;
 	private Thread thread;
 	private Menu menu;
 	static boolean paused = false;
@@ -134,7 +135,7 @@ public class Game extends Canvas implements Runnable {
 	
 	public static void genericEnemyBehaviour(){
 		if(State == STATE.GAME ){
-			for (int i=0;i<100;i++){	
+			for (int i=0;i<spawnRate;i++){	
 				passiveSpawner.add(new Enemy(randSpawn,0,0,400,0,500));
 				passiveSpawner.get(i).setxSpeed(Math.random()*16-8);
 				passiveSpawner.get(i).setySpeed(2);
@@ -367,6 +368,7 @@ public class Game extends Canvas implements Runnable {
 					this.konami = true;
 					Player.setSprite();
 					currentButton = 0; 
+					this.spawnRate = 200;
 						
 				}
 			}

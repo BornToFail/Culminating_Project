@@ -75,10 +75,14 @@ public class Player {
 		
 	}
 	public static void tiltRight(){
-		player = ss.grabImage(3,selectedCharacter,32,32);
+		if (Game.konami == false){
+			player = ss.grabImage(3,selectedCharacter,32,32);
+		}
 	}
 	public static void tiltLeft(){
-		player = ss.grabImage(2,selectedCharacter,32,32);
+		if (Game.konami == false){
+			player = ss.grabImage(2,selectedCharacter,32,32);
+		}
 	}
 	
 	//update method

@@ -114,7 +114,8 @@ public class HUD {
 			score = 0;
 			Player.bombs = 3;
 			Player.blinking = false;
-
+			Game.p.setX(250);
+			Game.p.setY(300);
 		}
     	g.setFont(fntL);
 		g.setColor(Color.WHITE);
