@@ -14,35 +14,18 @@ import java.awt.image.BufferedImage;
  * @author 342643103
  *
  */
-//Start a counter when the boss level starts.
-/*Timer T=new Timer();
-T.scheduleAtFixedRate(new TimerTask() {         
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable()
-                    {
 
-                        public void run()
-                        {
-                            countdown.setText(""+count);
-                            count++;                
-                        }
-                    });
-                }
-            }, 1000, 1000);
-*/
-
-//T.cancel();
 
 public class Boss implements Runnable {
 	/**
 	 * 
 	 */
-	private double X;
-	private double Y;
+	private double x;
+	private double y;
+	private double r;
 	
-	private double XSpeed;
-	private double YSpeed;
+	private double xSpeed;
+	private double ySpeed;
 	
 	private int left;
 	private int right;
@@ -51,35 +34,64 @@ public class Boss implements Runnable {
 	
 	private boolean move;
 	
-	private BufferedImage boss;
+	private static BufferedImage boss;
 	
 	
-	public Boss(double X, double Y, Game game) {
-		this.X=X;
-		this.Y=Y;
+	public Boss (double level) {
 		
-		SpriteSheet ss = new SpriteSheet(game.getSpriteSheet());
-		boss=ss.grabImage(5, 1, 32, 32);
+		if (level <= 4){
+			r = 0.8;
+		}
+		else if (level <= 7){
+			r = 3.2;
+		}
+		else if (level > 8){
+			r = 5;
+		}
+		setXSpeed(xSpeed, r);
+		setYSpeed(ySpeed, r);
+	}
+	
+	public static void setSprite(){
+		SpriteSheet ss = new SpriteSheet(Game.getSpriteSheet());
+		boss = ss.grabImage(1, 4, 32, 32);
+	}
+	
+	public void tick(){
+		setX(getX() + getXSpeed());
+		setY(getY() + getYSpeed());
+	}
+	
+	public void render(Graphics g) {
+		g.drawImage(boss, /*(int)getX(), (int)getY()*/200, 200, null);
 	}
 	
 	public double getX(){
-		return X;
+		return x;
 	}
 	public double getY(){
-		return Y;
+		return y;
 	}
-	public void setX(double X){
-		this.X = X;
+	public void setX(double x){
+		this.x = x;
 	}
-	public void setY(double Y){
-		this.Y = Y;
+	public void setY(double y){
+		this.y = y;
 	}
 	
-	public void setXSpeed(double XSpeed, double rate){
-		this.XSpeed = XSpeed*rate;
+	public double getXSpeed(){
+		return xSpeed;
 	}
-	public void setVelY(double YSpeed, double rate){
-		this.YSpeed = YSpeed*rate;
+	
+	public double getYSpeed(){
+		return ySpeed;
+	}
+	
+	public void setXSpeed(double xSpeed, double rate){
+		this.xSpeed = xSpeed*rate;
+	}
+	public void setYSpeed(double ySpeed, double rate){
+		this.ySpeed = ySpeed*rate;
 	}
 	
 	
@@ -92,206 +104,25 @@ public class Boss implements Runnable {
 		 */
 	}
 	
-	public Boss(double x, double y, int left, int right, int top,
-			int bottom) {
-		this.XSpeed = 0;
-		this.YSpeed = 0;
-		this.X = x;
-		this.Y = y;
-		this.left = left;
-		this.right = right;
-		this.top = top;
-		this.bottom = bottom;
-		startThread();
-	}
-	
-	public void startThread() {
-		move = true;
-		Thread t = new Thread(this);
-		t.start();
-	}
-	
-	public void stopThread() {
-		move = false;
-	}
-	
 	public void run() {
 		while (move) {
-			X += XSpeed;
-			Y += YSpeed;
-			if (X >= right | X <= left){
+			x += xSpeed;
+			y += ySpeed;
+			if (x >= right | x <= left){
 				//XSpeed *= -1;
-				X = left;
+				x = left;
 			}
-			if (X >= left | X <= right){
-				X = right;
+			if (x >= left | x <= right){
+				x = right;
 			}
-			if (Y >= bottom | Y <= top){
+			if (y >= bottom | y <= top){
 				//YSpeed *= -1;
-				Y = top;
+				y = top;
 			}
-			if (Y >= top | Y <= bottom){
-				Y = bottom;
+			if (y >= top | y <= bottom){
+				y = bottom;
 			}			
 		}
 	}
-	
-	
-
-	
-
-		
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

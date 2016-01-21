@@ -67,6 +67,7 @@ public class Game extends Canvas implements Runnable {
 	int[] sequence = {38, 38, 40, 40, 37, 39, 37, 39, 66, 65};
 	int currentButton = 0;
 	public static Player p;
+	public static Boss b;
 	static Controller c;
 
 	private Controller testC;
@@ -150,6 +151,13 @@ public class Game extends Canvas implements Runnable {
 		}
 
 	}
+	
+	public static void BossBehaviour(){
+		if(State == STATE.GAME){
+			Boss.setSprite();
+		}
+	}
+
 
 
 	//whenever a thread is called, runnable will call run
@@ -180,6 +188,9 @@ public class Game extends Canvas implements Runnable {
 				p.playercollisionTest(passiveSpawner);
 				Enemy.bulletcollisionTest(passiveSpawner, Controller.projectiles);
 				Enemy.wallCollisionTest(passiveSpawner);//Problematic
+				if (hudTimer == 5){
+					BossBehaviour();
+				}
 			}
 			if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
