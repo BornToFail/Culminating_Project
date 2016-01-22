@@ -152,10 +152,10 @@ public class Game extends Canvas implements Runnable {
 
 	}
 	
-	public static void BossBehaviour(){
-		if(State == STATE.GAME){
-			Boss.setSprite();
-		}
+	public void BossBehaviour(){
+		Boss.setSprite(); //Sets boss image
+		Boss.Difficulty(); //sets boss speeds
+		
 	}
 
 
@@ -188,9 +188,10 @@ public class Game extends Canvas implements Runnable {
 				p.playercollisionTest(passiveSpawner);
 				Enemy.bulletcollisionTest(passiveSpawner, Controller.projectiles);
 				Enemy.wallCollisionTest(passiveSpawner);//Problematic
-				if (hudTimer == 5){
-					BossBehaviour();
-				}
+				BossBehaviour();
+				/*if (hudTimer == 5){
+					BossBehaviour();//Boss processing
+				}*/
 			}
 			if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
