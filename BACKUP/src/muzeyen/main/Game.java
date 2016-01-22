@@ -101,6 +101,7 @@ public class Game extends Canvas implements Runnable {
 		
 		p = new Player(300,400, 1 ,this); //initializes player with x-cord and y-cord 200 and the state of the player sprite\
 		c = new Controller(this);
+		b = new Boss(200, 200, 1, 1, 480, 0);
 		testC = new Controller(this);
 		menu = new Menu();
 		Music.playMenuMusic();
@@ -154,7 +155,7 @@ public class Game extends Canvas implements Runnable {
 	
 	public void BossBehaviour(){
 		Boss.setSprite(); //Sets boss image
-		Boss.Difficulty(); //sets boss speeds
+		Boss.GoBoss(); //let it rip
 		
 	}
 
@@ -256,6 +257,7 @@ public class Game extends Canvas implements Runnable {
 			p.render(g);
 			c.render(g);
 			testC.render(g);
+			b.render(g);
 
 		}else if (State == STATE.CUTSCENE_1){
 			g.drawImage(image, 0, 0, getWidth(), getHeight(), this);

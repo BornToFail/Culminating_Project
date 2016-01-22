@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import muzeyen.main.Game.STATE;
+
 
 /**
  * 
@@ -49,7 +51,8 @@ public class Boss /*implements Runnable,*/ extends MovingObject {
 		super (x,y,xSpeed,ySpeed,right,top);
 	}
 	
-	public void Boss(){
+	
+	public static void GoBoss(){
 		Difficulty();
 		
 	}
@@ -63,33 +66,15 @@ public class Boss /*implements Runnable,*/ extends MovingObject {
 		 * the rate at which the speeds are
 		 * multiplied.
 		 */
-		double level = Intensity(HUD.score);
-		if (level <= 4){
-			r = 0.8;
+		double level = (HUD.score)/1000; 
+		for (int i=0; i<=100; i++){
+			if (level==i){
+				r = i*0.314;
+				setXSpeed(xSpeed, r);
+				setYSpeed(ySpeed, r);
+			}
 		}
-		else if (level <= 7){
-			r = 3.2;
-		}
-		else if (level > 8){
-			r = 5;
-		}
-		setXSpeed(xSpeed, r);
-		setYSpeed(ySpeed, r);
 	}
-	
-	
-	
-	
-	public static double Intensity(int score){
-		/*Determines at what rate
-		 * should the boss' speed
-		 * be increased depending
-		 * on the player's progress 
-		 * and score
-		 */
-		return intensity;
-	}
-	
 	
 	
 	
@@ -138,22 +123,22 @@ public class Boss /*implements Runnable,*/ extends MovingObject {
 	}
 	
 	
-	private void Shooting(double speed){
+	/*private void Shooting(double speed){
 		//If boss shoots, player freezes for 2 seconds
-		/*For shooting
+		For shooting
 		 * Loop that detects increasing angles of some
 		 * kind and shoots bullets every x degrees.
 		 * Bullets travel in straight lines.
-		 */
-	}
+		 
+	}*/
 	
 	public void wallCollision(ArrayList<Enemy> Enemies){
 		if (this.getX() >= 400 )
-			this.setXSpeed(xSpeed, -1);
+			setXSpeed(xSpeed, -1);
 		if (this.getX() <= 0 )
-			this.setXSpeed(xSpeed, -1);
+			setXSpeed(xSpeed, -1);
 		if (this.getY() <= 0){
-			this.setYSpeed(ySpeed, -1);
+			setYSpeed(ySpeed, -1);
 		}
 		
 	}
