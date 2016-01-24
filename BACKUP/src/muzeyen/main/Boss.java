@@ -40,8 +40,8 @@ public class Boss /*implements Runnable,*/ extends MovingObject {
 	
 	private static BufferedImage boss;
 	
-	private static double intensity;
-	
+	public static boolean seeBoss = false;
+	public static boolean shooting = false;
 	
 	/*public Boss() {
 			
@@ -54,6 +54,12 @@ public class Boss /*implements Runnable,*/ extends MovingObject {
 	
 	public static void GoBoss(){
 		Difficulty();
+		setXSpeed(1, 0.5);
+		setYSpeed(1, 0.5);
+		setSprite(seeBoss);
+		/*while (Game.State == STATE.GAME){
+			FireAway(Game.hudTimer);
+		}*/
 		
 	}
 	
@@ -67,21 +73,24 @@ public class Boss /*implements Runnable,*/ extends MovingObject {
 		 * multiplied.
 		 */
 		double level = (HUD.score)/1000; 
-		for (int i=0; i<=100; i++){
+		for (int i=1; i<=100; i++){
 			if (level==i){
-				r = i*0.314;
-				setXSpeed(xSpeed, r);
-				setYSpeed(ySpeed, r);
+				r = (i*(0.624));
+				setXSpeed(1, r);
+				setYSpeed(1, r);
 			}
 		}
 	}
-	
-	
-	
-	public static void setSprite(){
+			
+	public static void setSprite(boolean sB){
 		SpriteSheet ss = new SpriteSheet(Game.getSpriteSheet());
-		boss = ss.grabImage(1, 4, 32, 32);
-		//Boss(); //To start boss movement
+		if (sB = false){
+			boss = ss.grabImage(10, 10, 32, 32);
+		}
+		else if (sB = true){
+			boss = ss.grabImage(1, 4, 32, 32);
+		}
+		
 		
 	}
 	
@@ -97,12 +106,15 @@ public class Boss /*implements Runnable,*/ extends MovingObject {
 	public double getX(){
 		return x;
 	}
+	
 	public double getY(){
 		return y;
 	}
+	
 	public void setX(double x){
 		this.x = x;
 	}
+	
 	public void setY(double y){
 		this.y = y;
 	}
@@ -118,21 +130,36 @@ public class Boss /*implements Runnable,*/ extends MovingObject {
 	public static void setXSpeed(double xSpeed, double rate){
 		xSpeed = xSpeed*rate;
 	}
+	
 	public static void setYSpeed(double ySpeed, double rate){
 		ySpeed = ySpeed*rate;
 	}
 	
 	
-	/*private void Shooting(double speed){
-		//If boss shoots, player freezes for 2 seconds
-		For shooting
-		 * Loop that detects increasing angles of some
-		 * kind and shoots bullets every x degrees.
-		 * Bullets travel in straight lines.
-		 
-	}*/
+	private static void FireAway(){
+		
+		/*if (shooting = true){
+			Player.setVelX((Player.velX)*0.2);
+			Player.setVelY((Player.velY)*0.2);			
+		}*/
+		
+		
+	}
 	
-	public void wallCollision(ArrayList<Enemy> Enemies){
+	public void BossHit(ArrayList <Bullet> Bullets){
+		for(int j = 0; j< Controller.projectiles.size(); j++){
+			double distance = Math.sqrt(Math.pow(Bullets.get(j).getX()- this.getX(),2) + Math.pow(this.getY()-Bullets.get(j).getY(),2));
+			if (distance < 8){
+				//Game.passiveSpawner.remove(i);
+				Controller.projectiles.remove(j);
+				System.out.print("Boss hit");
+				HUD.score += 10;
+			}
+		}
+		FireAway();
+	}
+	
+	public void wallCollision(){
 		if (this.getX() >= 400 )
 			setXSpeed(xSpeed, -1);
 		if (this.getX() <= 0 )
@@ -143,22 +170,7 @@ public class Boss /*implements Runnable,*/ extends MovingObject {
 		
 	}
 	
-	/*public static void bulletcollision(ArrayList <Enemy> Enemies , ArrayList <Bullet> Bullets){
-
-		for (int i = 0; i<Game.passiveSpawner.size(); i++){
-			for(int j = 0; j< Controller.projectiles.size(); j++){
-				double distance = Math.sqrt(Math.pow(Bullets.get(j).getX()- Enemies.get(i).getX(),2) + Math.pow(Enemies.get(i).getY()-Bullets.get(j).getY(),2));
-				if (distance < 8){
-					Game.passiveSpawner.remove(i);
-					Controller.projectiles.remove(j);
-					System.out.print("Enemy hit");
-					HUD.score ++;
-				}
-			}
-		}
-			
-	}*/
-	
+		
 	public void run() {
 		while (move) {
 			x += xSpeed;

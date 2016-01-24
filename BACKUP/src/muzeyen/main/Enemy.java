@@ -62,6 +62,7 @@ public class Enemy extends MovingObject {
 		}
 			
 	}
+	
 	public static void wallCollisionTest(ArrayList<Enemy> Enemies){
 		for(int i = 0; i < Enemies.size(); i++){
 			if (Enemies.get(i).getX() >= 400 )
@@ -71,6 +72,7 @@ public class Enemy extends MovingObject {
 		}
 	
 	}
+	
 	public void animateOneStep() {
 	}
 

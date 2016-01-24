@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class Player {
 	
-	private static double x; //x-cord of player
-	private static double y; //y-cord of player
+	public double x; //x-cord of player
+	public double y; //y-cord of player
 	public static boolean blinking = false;
 	public static boolean spriteVisibility = true;
 	public long timeOfDeath;
@@ -16,8 +16,8 @@ public class Player {
 	private int s; //Sprite position of player
 	
 	//used to make movement smother 
-	private double velX = 0;
-	private double velY = 0;
+	public double velX = 0;
+	public double velY = 0;
 	public static int lives = 3;
 	public static int bombs = 3;
 	public static int selectedCharacter = 1;
